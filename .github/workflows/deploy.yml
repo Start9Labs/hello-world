@@ -20,6 +20,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Build x86_64 binary
+        run: |
+          docker run --rm \
+            -v ~/.cargo/registry:/root/.cargo/registry \
+            -v "${{ github.workspace }}":/home/rust/src \
+            messense/rust-musl-cross:x86_64-musl \
+            cargo build --release
+
       - name: Build aarch64 binary
         run: |
           docker run --rm \
@@ -60,7 +68,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          platforms: linux/arm64,linux/riscv64
+          platforms: linux/amd64,linux/arm64,linux/riscv64
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
