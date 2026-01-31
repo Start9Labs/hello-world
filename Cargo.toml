@@ -1,11 +1,13 @@
 [package]
 name = "hello-world"
-version = "1.0.0"
+version = "2.0.0"
 authors = ["Aiden McClelland <me@drbonez.dev>"]
-edition = "2018"
+edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-hyper = { version = "0.14.4", features = ["server", "http1", "http2", "tcp", "stream"] }
-tokio = { version = "1.4.0", features = ["full"] }
+hyper = { version = "1", features = ["server", "http1"] }
+hyper-util = { version = "0.1", features = ["tokio", "http1"] }
+http-body-util = "0.1"
+tokio = { version = "1", features = ["full"] }
